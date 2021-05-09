@@ -9,7 +9,7 @@ RUN cd /tmp && \
     curl -sSL https://cli.openfaas.com | sh
 
 
-RUN npm config set user root
+RUN faas-cli --version && faas-cli --help
 
 WORKDIR /usr/src/app
 
