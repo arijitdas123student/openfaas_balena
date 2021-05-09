@@ -1,0 +1,19 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install curl 
+
+RUN cd /tmp && \
+    curl -sSL https://cli.openfaas.com | sh
+
+
+RUN npm config set user root
+
+WORKDIR /usr/src/app
+
+
+COPY ./app/ /usr/src/app/
+
+
+
