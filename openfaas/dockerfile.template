@@ -3,17 +3,24 @@ FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install curl 
+    apt-get install curl -yes
 
 RUN cd /tmp && \
     curl -sSL https://cli.openfaas.com | sh
 
 
-RUN faas-cli --version && faas-cli --help
+RUN faas-cli --version 
+    faas-cli new callme --lang node
+    find . | grep callme
+    cat callme.yml
+    faas-cli build -f callme.yml
+    faas-cli push -f callme.yml
+    faas-cli deploy -f callme.yml
 
-WORKDIR /usr/src/app
+WORKDIR /home/app
 
 
 COPY ./app/ /usr/src/app/
 
 
+CMD ["faas-cli"]
